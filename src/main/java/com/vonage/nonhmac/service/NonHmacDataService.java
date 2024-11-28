@@ -312,7 +312,7 @@ public class NonHmacDataService {
             }
         }
 
-        File externalUriCsv = new File("/Users/mpandey/Downloads/ext_api_calls_with_count_oct_month (1).csv");
+        File externalUriCsv = new File("ext_api_calls_with_count_oct_month (1).csv");
         Scanner scanner = new Scanner(externalUriCsv);
         List<String> uris = new ArrayList<>();
         while(scanner.hasNextLine()){
@@ -333,7 +333,7 @@ public class NonHmacDataService {
                 externalAuthViews.computeIfAbsent(authView, k -> new ArrayList<>()).add(authView.getUri());
             }
             else {
-                log.info(authView.toString());
+//                log.info(authView.toString());
                 internalAuthViews.computeIfAbsent(authView, k -> new ArrayList<>()).add(authView.getUri());
             }
         }
