@@ -1,0 +1,245 @@
+{
+  "params": {
+    "index": "vbc_platform_services_team*",
+    "body": {
+      "sort": [
+        {
+          "timestamp": {
+            "order": "desc",
+            "unmapped_type": "boolean"
+          }
+        }
+      ],
+      "size": 500,
+      "version": true,
+      "aggs": {
+        "2": {
+          "date_histogram": {
+            "field": "timestamp",
+            "fixed_interval": "12h",
+            "time_zone": "UTC",
+            "min_doc_count": 1
+          }
+        }
+      },
+      "stored_fields": [
+        "*"
+      ],
+      "script_fields": {},
+      "docvalue_fields": [
+        {
+          "field": "ef-json-message.request_time",
+          "format": "date_time"
+        },
+        {
+          "field": "processed_timestamp",
+          "format": "date_time"
+        },
+        {
+          "field": "timestamp",
+          "format": "date_time"
+        }
+      ],
+      "_source": {
+        "excludes": []
+      },
+      "query": {
+        "bool": {
+          "must": [],
+          "filter": [
+            {
+              "bool": {
+                "should": [
+                  {
+                    "multi_match": {
+                      "type": "phrase",
+                      "query":"<REQID>",
+                      "lenient": true
+                    }
+                  },
+                  {
+                    "bool": {
+                      "should": [
+                        {
+                          "multi_match": {
+                            "type": "phrase",
+                            "query": "<REQID>",
+                            "lenient": true
+                          }
+                        },
+                        {
+                          "bool": {
+                            "should": [
+                              {
+                                "multi_match": {
+                                  "type": "phrase",
+                                  "query": "<REQID>",
+                                  "lenient": true
+                                }
+                              },
+                              {
+                                "bool": {
+                                  "should": [
+                                    {
+                                      "multi_match": {
+                                        "type": "phrase",
+                                        "query": "<REQID>",
+                                        "lenient": true
+                                      }
+                                    },
+                                    {
+                                      "bool": {
+                                        "should": [
+                                          {
+                                            "multi_match": {
+                                              "type": "phrase",
+                                              "query": "<REQID>",
+                                              "lenient": true
+                                            }
+                                          },
+                                          {
+                                            "bool": {
+                                              "should": [
+                                                {
+                                                  "multi_match": {
+                                                    "type": "phrase",
+                                                    "query": "<REQID>",
+                                                    "lenient": true
+                                                  }
+                                                },
+                                                {
+                                                  "bool": {
+                                                    "should": [
+                                                      {
+                                                        "multi_match": {
+                                                          "type": "phrase",
+                                                          "query": "<REQID>",
+                                                          "lenient": true
+                                                        }
+                                                      },
+                                                      {
+                                                        "bool": {
+                                                          "should": [
+                                                            {
+                                                              "multi_match": {
+                                                                "type": "phrase",
+                                                                "query": "<REQID>",
+                                                                "lenient": true
+                                                              }
+                                                            },
+                                                            {
+                                                              "bool": {
+                                                                "should": [
+                                                                  {
+                                                                    "multi_match": {
+                                                                      "type": "phrase",
+                                                                      "query": "<REQID>",
+                                                                      "lenient": true
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "multi_match": {
+                                                                      "type": "phrase",
+                                                                      "query": "<REQID>",
+                                                                      "lenient": true
+                                                                    }
+                                                                  }
+                                                                ],
+                                                                "minimum_should_match": 1
+                                                              }
+                                                            }
+                                                          ],
+                                                          "minimum_should_match": 1
+                                                        }
+                                                      }
+                                                    ],
+                                                    "minimum_should_match": 1
+                                                  }
+                                                }
+                                              ],
+                                              "minimum_should_match": 1
+                                            }
+                                          }
+                                        ],
+                                        "minimum_should_match": 1
+                                      }
+                                    }
+                                  ],
+                                  "minimum_should_match": 1
+                                }
+                              }
+                            ],
+                            "minimum_should_match": 1
+                          }
+                        }
+                      ],
+                      "minimum_should_match": 1
+                    }
+                  }
+                ],
+                "minimum_should_match": 1
+              }
+            },
+            {
+              "bool": {
+                "minimum_should_match": 1,
+                "should": [
+                  {
+                    "match_phrase": {
+                      "message": "[com.vocalocity.hdap.click2callme.Click2CallMeHelper]"
+                    }
+                  },
+                  {
+                    "match_phrase": {
+                      "message": "VBCC-1700"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "range": {
+                "timestamp": {
+                  "gte": "<GTE>",
+                  "lte": "<LTE>",
+                  "format": "strict_date_optional_time"
+                }
+              }
+            }
+          ],
+          "should": [],
+          "must_not": [
+            {
+              "match_phrase": {
+                "account": "QA"
+              }
+            },
+            {
+              "match_phrase": {
+                "message": "Login Name: UNKNOWN"
+              }
+            },
+            {
+              "match_phrase": {
+                "message": "[com.vocalocity.hdap.security.SignatureAuthenticationFilter]"
+              }
+            }
+          ]
+        }
+      },
+      "highlight": {
+        "pre_tags": [
+          "@opensearch-dashboards-highlighted-field@"
+        ],
+        "post_tags": [
+          "@/opensearch-dashboards-highlighted-field@"
+        ],
+        "fields": {
+          "*": {}
+        },
+        "fragment_size": 2147483647
+      }
+    },
+    "preference": 1728394492084
+  }
+}
