@@ -12,7 +12,8 @@ import java.util.function.Function;
 public class PostgresConnector {
 
     private static String URL = "jdbc:postgresql://global-pgbouncer.amz1.vocalocity.com:6543/hdap";
-    private static String USER = "mpandey";
+    @Value("${USERNAME}")
+    private static String USER;
     @Value("${DB_PASS}")
     private String PASSWORD;
 
