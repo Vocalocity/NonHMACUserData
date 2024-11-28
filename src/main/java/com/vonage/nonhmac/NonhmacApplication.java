@@ -1,13 +1,19 @@
 package com.vonage.nonhmac;
 
+import com.vonage.db.PostgresConnector;
+import lombok.AllArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+import java.sql.SQLException;
+
 @SpringBootApplication
 @ComponentScan("com.vonage")
 @EnableAsync
+@AllArgsConstructor
 public class NonhmacApplication {
 
 	private static boolean match(String uri, String external, int i, int j){

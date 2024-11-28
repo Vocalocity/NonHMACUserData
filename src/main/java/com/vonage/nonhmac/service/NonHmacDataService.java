@@ -52,8 +52,6 @@ public class NonHmacDataService {
 
     private final RequestIDDataRepository requestIDDataRepository;
 
-    private final EmailService emailService;
-
     private final FileService fileService;
 
     private final PostgresConnector pgConnector;

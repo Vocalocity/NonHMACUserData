@@ -1,6 +1,7 @@
 package com.vonage.db;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
@@ -10,9 +11,10 @@ import java.util.function.Function;
 @Component
 public class PostgresConnector {
 
-    private static final String URL = "jdbc:postgresql://global-pgbouncer.amz1.vocalocity.com:6543/hdap";
-    private static final String USER = "mpandey";
-    private static final String PASSWORD = "vrmkGTKi22";
+    private static String URL = "jdbc:postgresql://global-pgbouncer.amz1.vocalocity.com:6543/hdap";
+    private static String USER = "mpandey";
+    @Value("${DB_PASS}")
+    private String PASSWORD;
 
     public  <R> R execute(String query, Function<ResultSet, R> resultProcessor) {
         try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -20,7 +22,7 @@ public class PostgresConnector {
             ResultSet resultSet = statement.executeQuery(query)){
             return resultProcessor.apply(resultSet);
         } catch (SQLException e) {
-            log.error("Connection failure.");
+            log.error("Connection failure. {}", e.getMessage());
         }
         return null;
     }
