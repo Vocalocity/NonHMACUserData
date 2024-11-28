@@ -69,7 +69,7 @@ public class NonHmacDataService {
         UNAUTHORIZED
     }
 
-    private int fileCount = 26;
+    private int fileCount = 41;
 
     public void getData(LocalDateTime start, LocalDateTime end){
         ExecutorService fetchResponseThreadPool = Executors.newFixedThreadPool(10);
